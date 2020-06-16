@@ -5,6 +5,7 @@
   "types": "./lib/index-web.d.ts",
   "main": "./lib/index-node.js",
   "browser": "./lib/index-web.js",
+  "react-native": "./lib/index-react-native.js",
   "homepage": "https://docs.hedera.com/docs/hedera-sdks",
   "repository": "https://github.com/hashgraph/hedera-sdk-js",
   "bugs": "https://github.com/hashgraph/hedera-sdk-js/issues",
@@ -50,6 +51,7 @@
   "dependencies": {
     "@improbable-eng/grpc-web": "^0.12.0",
     "@improbable-eng/grpc-web-node-http-transport": "^0.12.0",
+    "@improbable-eng/grpc-web-react-native-transport": "^0.12.0",
     "@stablelib/base64": "^1.0.0",
     "@stablelib/hash": "^1.0.0",
     "@stablelib/hex": "^1.0.0",
