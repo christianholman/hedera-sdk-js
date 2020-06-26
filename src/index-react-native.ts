@@ -64,5 +64,5 @@ export class Client extends BaseClient {
 }
 
 // Mirror
-export { MirrorClient } from "./mirror/web/MirrorClient";
-export { MirrorConsensusTopicQuery } from "./mirror/web/MirrorConsensusTopicQuery";
+export { MirrorClient } from "./mirror/react-native/MirrorClient";
+export { MirrorConsensusTopicQuery } from "./mirror/react-native/MirrorConsensusTopicQuery";
