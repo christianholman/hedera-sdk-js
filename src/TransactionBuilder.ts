@@ -22,11 +22,11 @@ import BigNumber from "bignumber.js";
  */
 const maxValidDuration = 120;
 
-export abstract class TransactionBuilder {
+export abstract class TransactionBuilder<O = Transaction> {
     protected readonly _inner: TransactionBody;
-    private _shouldSetFee = true;
+    protected _shouldSetFee = true;
 
-    private _node?: AccountId;
+    protected _node?: AccountId;
 
     protected constructor() {
         this._inner = new TransactionBody();
@@ -88,6 +88,11 @@ export abstract class TransactionBuilder {
         });
     }
 
+    public abstract getCost(client: BaseClient): Promise<Hbar>;
+    public abstract build(client?: BaseClient): O;
+}
+
+export class SingleTransactionBuilder extends TransactionBuilder<Transaction> {
     public async getCost(client: BaseClient): Promise<Hbar> {
         const originalFee = this._inner.getTransactionfee();
 
@@ -171,5 +176,13 @@ export abstract class TransactionBuilder {
 
     public execute(client: BaseClient): Promise<TransactionId> {
         return this.build(client).execute(client);
+    }
+
+    protected get _method(): grpc.UnaryMethodDefinition<Transaction_, TransactionResponse> {
+        throw new Error("Method not implemented.");
+    }
+
+    protected _doValidate(_: string[]): void {
+        throw new Error("Method not implemented.");
     }
 }

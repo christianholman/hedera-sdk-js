@@ -1,4 +1,4 @@
-import { TransactionBuilder } from "./TransactionBuilder";
+import { SingleTransactionBuilder } from "./TransactionBuilder";
 import { SystemDeleteTransactionBody } from "./generated/SystemDelete_pb";
 import { dateToTimestamp, timestampToProto } from "./Timestamp";
 import { FileId, FileIdLike } from "./file/FileId";
@@ -8,7 +8,6 @@ import { FileService } from "./generated/FileService_pb_service";
 import { Transaction } from "./generated/Transaction_pb";
 import { TransactionResponse } from "./generated/TransactionResponse_pb";
 import { normalizeEntityId } from "./util";
-import { ConsensusTopicIdLike, ConsensusTopicId } from "./consensus/ConsensusTopicId";
 
 /**
  * Delete a file or smart contract - can only be done with a Hedera admin multisig. When it is
@@ -18,7 +17,7 @@ import { ConsensusTopicIdLike, ConsensusTopicId } from "./consensus/ConsensusTop
  * deleted, the cryptocurrency account within it continues to exist, and is not affected
  * by the expiration time here.
  */
-export class SystemDeleteTransaction extends TransactionBuilder {
+export class SystemDeleteTransaction extends SingleTransactionBuilder {
     private readonly _body: SystemDeleteTransactionBody;
 
     public constructor() {
@@ -66,14 +65,6 @@ export class SystemDeleteTransaction extends TransactionBuilder {
      */
     public setContractId(id: ContractIdLike): this {
         this._body.setContractid(new ContractId(id)._toProto());
-        return this;
-    }
-
-    /**
-     * The topic ID instance to delete, in the format used in transactions
-     */
-    public setTopicId(id: ConsensusTopicIdLike): this {
-        this._body.setTopicid(new ConsensusTopicId(id)._toProto());
         return this;
     }
 

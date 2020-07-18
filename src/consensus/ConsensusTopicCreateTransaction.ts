@@ -1,4 +1,4 @@
-import { TransactionBuilder } from "../TransactionBuilder";
+import { SingleTransactionBuilder } from "../TransactionBuilder";
 import { Transaction } from "../generated/Transaction_pb";
 import { TransactionResponse } from "../generated/TransactionResponse_pb";
 import { grpc } from "@improbable-eng/grpc-web";
@@ -6,11 +6,10 @@ import { ConsensusCreateTopicTransactionBody } from "../generated/ConsensusCreat
 import { ConsensusService } from "../generated/ConsensusService_pb_service";
 import UnaryMethodDefinition = grpc.UnaryMethodDefinition;
 import { PublicKey } from "../crypto/PublicKey";
-import { Time } from "../Time";
 import { newDuration } from "../util";
 import { AccountId, AccountIdLike } from "../account/AccountId";
 
-export class ConsensusTopicCreateTransaction extends TransactionBuilder {
+export class ConsensusTopicCreateTransaction extends SingleTransactionBuilder {
     private _body: ConsensusCreateTopicTransactionBody;
 
     public constructor() {
@@ -46,16 +45,6 @@ use `ConsensusTopicCreateTransaction.setAutoRenewAccountId()` instead.");
         return this;
     }
 
-    /**
-     * @deprecated `ConsensusTopicCreateTransaction.setExpirationTime()` is deprecated, and
-     * should not be used.
-     */
-    public setExpirationTime(time: Time): this {
-        console.warn("`ConsensusTopicCreateTransaction.setExpirationTime()` is deprecated, and should not be used");
-        this._body.setExpirationtime(time._toProto());
-        return this;
-    }
-
     public setSubmitKey(key: PublicKey): this {
         this._body.setSubmitkey(key._toProtoKey());
         return this;
@@ -63,16 +52,6 @@ use `ConsensusTopicCreateTransaction.setAutoRenewAccountId()` instead.");
 
     public setTopicMemo(memo: string): this {
         this._body.setMemo(memo);
-        return this;
-    }
-
-    /**
-     * @deprecated `ConsensusTopicCreateTransaction.setValidStart()` is deprecated, and
-     * should not be used.
-     */
-    public setValidStart(time: Time): this {
-        console.warn("`ConsensusTopicCreateTransaction.setValidStart()` is deprecated.");
-        this._body.setValidstarttime(time._toProto());
         return this;
     }
 

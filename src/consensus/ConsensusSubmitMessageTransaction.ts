@@ -1,4 +1,4 @@
-import { TransactionBuilder } from "../TransactionBuilder";
+import { SingleTransactionBuilder } from "../TransactionBuilder";
 import { Transaction } from "../generated/Transaction_pb";
 import { TransactionResponse } from "../generated/TransactionResponse_pb";
 import { grpc } from "@improbable-eng/grpc-web";
@@ -9,7 +9,7 @@ import { ConsensusTopicId, ConsensusTopicIdLike } from "./ConsensusTopicId";
 import * as utf8 from "@stablelib/utf8";
 
 /** @deprecated use `ConsensusMessageSubmitTransaction` instead. */
-export class ConsensusSubmitMessageTransaction extends TransactionBuilder {
+export class ConsensusSubmitMessageTransaction extends SingleTransactionBuilder {
     private _body: ConsensusSubmitMessageTransactionBody;
 
     /** @deprecated use `ConsensusMessageSubmitTransaction` instead. */
